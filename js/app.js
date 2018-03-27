@@ -39,6 +39,15 @@ function applyShuffle (array) {
   }
 }
 
+function displayCard (event) {
+  const deck = document.querySelector('.deck')
+  const selectCard = event.target;
+  if (selectCard !== deck) {
+    selectCard.classList.add("show", 'open');
+    console.log(event.target);
+  }
+}
+
 // Card Elements HTMLCollection Retrieval and Card's List Array Creation
 const cardElements = document.getElementsByClassName("card");
 let cardList = Array.from(cardElements);
@@ -57,3 +66,5 @@ applyShuffle(cardList);
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+const deck = document.querySelector('.deck');
+deck.addEventListener('click', displayCard, false);
