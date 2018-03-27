@@ -39,21 +39,26 @@ function applyShuffle (array) {
   }
 }
 
-// Append Selected Card to Open Cards List
-function openCards (array, element) {
-  array.push(element);
-  return array;
+// Ceck for Open Cards List Length
+function openCards (array) {
+  openList = [];
+  for(const index of array) {
+    if (index.classList.contains("open")) {
+      openList.push(index);
+    }
+  }
+  return openList;
 }
 
 // Show Card Selected function
-function displayCard (event) {
+function displayCard (selector) {
   const deck = document.querySelector('.deck')
-  const selectCard = event.target;
-  if (selectCard !== deck) {
-    selectCard.classList.add("show", 'open');
-    console.log(event.target);
+  if (selector !== deck && !(selector.classList.contains("show"))) {
+    selector.classList.add('open', 'show');
+    return selector
   }
 }
+
 
 
 
@@ -78,4 +83,4 @@ applyShuffle(cardList);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const deck = document.querySelector('.deck');
-deck.addEventListener('click', displayCard, false);
+deck.addEventListener('click', matchingCard, false);
