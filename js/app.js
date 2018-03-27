@@ -2,7 +2,6 @@
  * Create a list that holds all of your cards
  */
 
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -24,6 +23,12 @@ function shuffle(array) {
 
     return array;
 }
+
+// Card Elements HTMLCollection Retrieval and Card's List Array Creation
+const cardElements = document.getElementsByClassName("card");
+let cardList = Array.from(cardElements);
+
+
 
 
 /*
