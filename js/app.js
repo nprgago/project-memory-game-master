@@ -39,6 +39,13 @@ function applyShuffle (array) {
   }
 }
 
+// Append Selected Card to Open Cards List
+function openCards (array, element) {
+  array.push(element);
+  return array;
+}
+
+// Show Card Selected function
 function displayCard (event) {
   const deck = document.querySelector('.deck')
   const selectCard = event.target;
@@ -47,6 +54,10 @@ function displayCard (event) {
     console.log(event.target);
   }
 }
+
+
+
+
 
 // Card Elements HTMLCollection Retrieval and Card's List Array Creation
 const cardElements = document.getElementsByClassName("card");
