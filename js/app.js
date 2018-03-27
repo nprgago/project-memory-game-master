@@ -24,12 +24,28 @@ function shuffle(array) {
     return array;
 }
 
+// Remove Elements from DOM function.
+function removeElements (array, selector) {
+  for(const index of array) {
+    selector.removeChild(index);
+  }
+}
+// Add Shuffled Cards Elements to DOM function.
+function applyShuffle (array) {
+  const deck = document.querySelector('.deck');
+  removeElements(array, deck);
+  for(const index of array) {
+    deck.appendChild(index)
+  }
+}
+
 // Card Elements HTMLCollection Retrieval and Card's List Array Creation
 const cardElements = document.getElementsByClassName("card");
 let cardList = Array.from(cardElements);
 
-
-
+// Card Shuffling
+const shuffledCards = shuffle(cardList);
+applyShuffle(cardList);
 
 /*
  * set up the event listener for a card. If a card is clicked:
