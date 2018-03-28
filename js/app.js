@@ -39,6 +39,39 @@ function applyShuffle (array) {
   }
 }
 
+// Move counter Function
+function moveCounter() {
+  const starSelector = document.querySelectorAll('.fa-star');
+  const moveSelector = document.querySelector('.moves');
+  const currentMoves = Number(moveSelector.textContent);
+  const addMove = currentMoves + 1;
+  moveSelector.textContent = addMove;
+  if (currentMoves === 9) {
+    const starLost = starSelector[2];
+    starLost.classList.remove("fa-star");
+    starLost.classList.add("fa-star-o");
+  } else if (currentMoves === 15) {
+    const starLost = starSelector[1];
+    starLost.classList.remove("fa-star");
+    starLost.classList.add("fa-star-o");
+  } else if (currentMoves === 24) {
+    const starLost = starSelector[0];
+    starLost.classList.remove("fa-star");
+    starLost.classList.add("fa-star-o");
+  }
+}
+
+// Show Card Selected function
+function displayCard (selector) {
+  const deck = document.querySelector('.deck')
+  if (selector !== deck && !(selector.classList.contains("show"))) {
+    selector.classList.add('open', 'show');
+    // set animation for card dislay
+    moveCounter();
+    return selector;
+  }
+}
+
 // Ceck for Open Cards List Length
 function openCards (array) {
   openList = [];
@@ -50,35 +83,22 @@ function openCards (array) {
   return openList;
 }
 
-// Show Card Selected function
-function displayCard (selector) {
-  const deck = document.querySelector('.deck')
-  if (selector !== deck && !(selector.classList.contains("show"))) {
-    selector.classList.add('open', 'show');
-    return selector
-  }
-}
-
 // Check if Open Cards are a match!
 function matchingCards (array) {
   const firstCard = array[0].firstElementChild.classList.value;
   const secondCard = array[1].firstElementChild.classList.value;
-
   if (firstCard === secondCard) {
-
+    // set animation for right match
     array[0].classList.remove('open', 'show');
     array[0].classList.add('match');
     array[1].classList.remove('open', 'show');
     array[1].classList.add('match');
   } else {
-
+    // set animation for wrong match
     array[0].classList.remove('open', 'show');
     array[1].classList.remove('open', 'show');
   }
 }
-
-
-
 
 
 
