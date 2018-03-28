@@ -59,6 +59,24 @@ function displayCard (selector) {
   }
 }
 
+// Check if Open Cards are a match!
+function matchingCards (array) {
+  const firstCard = array[0].firstElementChild.classList.value;
+  const secondCard = array[1].firstElementChild.classList.value;
+
+  if (firstCard === secondCard) {
+
+    array[0].classList.remove('open', 'show');
+    array[0].classList.add('match');
+    array[1].classList.remove('open', 'show');
+    array[1].classList.add('match');
+  } else {
+
+    array[0].classList.remove('open', 'show');
+    array[1].classList.remove('open', 'show');
+  }
+}
+
 
 
 
@@ -83,4 +101,4 @@ applyShuffle(cardList);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const deck = document.querySelector('.deck');
-deck.addEventListener('click', matchingCard, false);
+deck.addEventListener('click', matchingGame, false);
