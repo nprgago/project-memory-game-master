@@ -30,6 +30,7 @@ function removeElements (array, selector) {
     selector.removeChild(index);
   }
 }
+
 // Add Shuffled Cards Elements to DOM function.
 function applyShuffle (array) {
   const deck = document.querySelector('.deck');
@@ -37,6 +38,14 @@ function applyShuffle (array) {
   for(const index of array) {
     deck.appendChild(index)
   }
+}
+
+// Set correct selector, even if user click on symbol. 
+function setSelector (selector) {
+  if (selector.tagName === 'I' ) {
+    selector = selector.parentElement
+  }
+  return selector;
 }
 
 // Move counter Function
@@ -99,6 +108,8 @@ function matchingCards (array) {
     array[1].classList.remove('open', 'show');
   }
 }
+
+
 
 
 
