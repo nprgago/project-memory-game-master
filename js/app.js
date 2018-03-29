@@ -84,7 +84,6 @@ function displayCard (selector) {
   const deck = document.querySelector('.deck')
   if (selector !== deck && !(selector.classList.contains("show"))) {
     selector.classList.add('open', 'show');
-    // set animation for card dislay
     moveCounter(true, false);
     return selector;
   }
@@ -113,16 +112,19 @@ function matchingCards (array) {
   const firstCard = array[0].firstElementChild.classList.value;
   const secondCard = array[1].firstElementChild.classList.value;
   if (firstCard === secondCard) {
-    // set animation for right match
     array[0].classList.remove('open', 'show');
     array[0].classList.add('match');
     array[1].classList.remove('open', 'show');
     array[1].classList.add('match');
+    // set animation for right match
   } else {
     // set animation for wrong match
-    array[0].classList.remove('open', 'show');
-    array[1].classList.remove('open', 'show');
-  }
+    array[0].classList.add('unmatch');
+    array[1].classList.add('unmatch');
+    setTimeout(function wait() {
+      array[0].classList.remove('open', 'show', 'unmatch');
+      array[1].classList.remove('open', 'show', 'unmatch');
+    }, 600)};
 }
 
 // working in the moment ||
@@ -134,6 +136,7 @@ function resetGame () {
   const shuffledCards = shuffle(cardList);
   applyShuffle(cardList);
 }
+
 
 
 
