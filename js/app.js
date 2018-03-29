@@ -77,6 +77,7 @@ function moveCounter(increment, restart) {
       index.classList.add('fa-star')
     }
   }
+  return currentMoves;
 }
 
 // Show Card Selected function
@@ -105,6 +106,18 @@ function openCards (array) {
     }
   }
   return openList;
+}
+
+function matchedCards () {
+  const cardElements = document.getElementsByClassName("card");
+  let cardList = Array.from(cardElements);
+  let counter = 0
+  for (let index of cardList) {
+    if (index.classList.contains('match')) {
+      counter += 1;
+    }
+  }
+  return counter;
 }
 
 // Check if Open Cards are a match!
@@ -169,9 +182,24 @@ function resetGame () {
   applyShuffle(cardList);
 }
 
-
-
-
+// Master function to control game flow. 
+function matchingGame (event) {
+  const cardElements = document.getElementsByClassName("card");
+  let cardList = Array.from(cardElements);
+  const selectCard = setSelector(event.target);
+  const openList = openCards(cardList);
+  if (openList.length === 0) {
+    displayCard(selectCard);
+  }
+  else if (openList.length === 1) {
+    displayCard(selectCard);
+    const openList = openCards(cardList);
+    matchingCards(openList);
+    if (matchedCards() === 16) {
+      winGame(document.querySelector('.moves').textContent, document.querySelectorAll('.fa-star').length);
+    }
+  }
+}
 
 // Card Elements HTMLCollection Retrieval and Card's List Array Creation
 const cardElements = document.getElementsByClassName("card");
