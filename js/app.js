@@ -40,7 +40,7 @@ function applyShuffle (array) {
   }
 }
 
-// Set correct selector, even if user click on symbol. 
+// Set correct selector, even if user click on symbol.
 function setSelector (selector) {
   if (selector.tagName === 'I' ) {
     selector = selector.parentElement
@@ -48,25 +48,34 @@ function setSelector (selector) {
   return selector;
 }
 
-// Move counter Function
-function moveCounter() {
+// Move counter Function ||
+function moveCounter(increment, restart) {
   const starSelector = document.querySelectorAll('.fa-star');
   const moveSelector = document.querySelector('.moves');
   const currentMoves = Number(moveSelector.textContent);
-  const addMove = currentMoves + 1;
-  moveSelector.textContent = addMove;
-  if (currentMoves === 9) {
-    const starLost = starSelector[2];
-    starLost.classList.remove("fa-star");
-    starLost.classList.add("fa-star-o");
-  } else if (currentMoves === 15) {
-    const starLost = starSelector[1];
-    starLost.classList.remove("fa-star");
-    starLost.classList.add("fa-star-o");
-  } else if (currentMoves === 24) {
-    const starLost = starSelector[0];
-    starLost.classList.remove("fa-star");
-    starLost.classList.add("fa-star-o");
+  if (increment === true && restart === false) {
+    const addMove = currentMoves + 1;
+    moveSelector.textContent = addMove;
+    if (currentMoves === 9) {
+      const starLost = starSelector[2];
+      starLost.classList.remove("fa-star");
+      starLost.classList.add("fa-star-o");
+    } else if (currentMoves === 15) {
+      const starLost = starSelector[1];
+      starLost.classList.remove("fa-star");
+      starLost.classList.add("fa-star-o");
+    } else if (currentMoves === 24) {
+      const starLost = starSelector[0];
+      starLost.classList.remove("fa-star");
+      starLost.classList.add("fa-star-o");
+    }
+  } else if (increment === false && restart === true) {
+    const star_oSelector = document.querySelectorAll('.fa-star-o')
+    moveSelector.textContent = '0';
+    for (index of star_oSelector) {
+      index.classList.remove('fa-star-o');
+      index.classList.add('fa-star')
+    }
   }
 }
 
@@ -76,12 +85,19 @@ function displayCard (selector) {
   if (selector !== deck && !(selector.classList.contains("show"))) {
     selector.classList.add('open', 'show');
     // set animation for card dislay
-    moveCounter();
+    moveCounter(true, false);
     return selector;
   }
 }
 
-// Ceck for Open Cards List Length
+// Undisplay Cards for reset purposes ||
+function undisplayCards (array) {
+  for(index of array) {
+    index.classList.remove('match', 'open', 'show');
+  }
+}
+
+// Check for Open Cards List Length
 function openCards (array) {
   openList = [];
   for(const index of array) {
@@ -109,7 +125,15 @@ function matchingCards (array) {
   }
 }
 
-
+// working in the moment ||
+function resetGame () {
+  const cardElements = document.getElementsByClassName("card");
+  let cardList = Array.from(cardElements);
+  undisplayCards(cardList);
+  moveCounter(false, true);
+  const shuffledCards = shuffle(cardList);
+  applyShuffle(cardList);
+}
 
 
 
@@ -132,4 +156,6 @@ applyShuffle(cardList);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const deck = document.querySelector('.deck');
+const restart = document.querySelector('.restart');
 deck.addEventListener('click', matchingGame, false);
+restart.addEventListener('click', resetGame, false);
