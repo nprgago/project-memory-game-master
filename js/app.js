@@ -150,6 +150,9 @@ String.prototype.format = function () {
 
 // Win function!
 function winGame (moveCount, starsCount) {
+  const time_minutes = document.querySelector('#minutes').textContent;
+  const time_seconds = document.querySelector('#seconds').textContent;
+  const time = time_minutes + ' minutes and '  + time_seconds + ' seconds';
   document.querySelector('.container').remove();
 
   const newDiv = '<div class = "container box"></div>';
@@ -158,7 +161,7 @@ function winGame (moveCount, starsCount) {
   const mainHeading = '<h1 class="final-title">Congratulations! You Won!</h1>';
   const newSection = '<section class = "final-score"></section>';
   const firstParagraph = '<p>With <strong>{0} Moves</strong> and <strong>{1} stars </strong>.</p>'.format(moveCount, starsCount);
-  const secondParagraph = '<p>Wooooooooooooo!</p>';
+  const secondParagraph = '<p> {0}. Wooooooooooooo!</p>'.format(time);
   const newButton = '<button class = "button" type="button" value="Refresh Page" onClick="window.location.reload()">Play again!</button>';
 
   document.body.insertAdjacentHTML('afterbegin', newDiv);
@@ -179,7 +182,11 @@ function resetGame () {
   moveCounter(false, true);
   const shuffledCards = shuffle(cardList);
   applyShuffle(cardList);
+  return time = 0
 }
+
+// timer function
+function timerCount (time) { return time > 9 ? time : "0" + time; }
 
 // Master function to control game flow.
 function matchingGame (event) {
@@ -208,6 +215,13 @@ let cardList = Array.from(cardElements);
 // Card Shuffling
 const shuffledCards = shuffle(cardList);
 applyShuffle(cardList);
+
+// Timer Count (changed from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript)
+let time = 0
+setInterval( function() {
+  document.querySelector('#seconds').textContent = (timerCount(++time%60));
+  document.querySelector('#minutes').textContent = (timerCount(parseInt(time/60,10)));
+}, 1000);
 
 /*
  * set up the event listener for a card. If a card is clicked:
