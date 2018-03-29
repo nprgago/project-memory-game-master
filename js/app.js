@@ -60,11 +60,11 @@ function moveCounter(increment, restart) {
       const starLost = starSelector[2];
       starLost.classList.remove("fa-star");
       starLost.classList.add("fa-star-o");
-    } else if (currentMoves === 15) {
+    } else if (currentMoves === 19) {
       const starLost = starSelector[1];
       starLost.classList.remove("fa-star");
       starLost.classList.add("fa-star-o");
-    } else if (currentMoves === 24) {
+    } else if (currentMoves === 29) {
       const starLost = starSelector[0];
       starLost.classList.remove("fa-star");
       starLost.classList.add("fa-star-o");
@@ -85,7 +85,6 @@ function displayCard (selector) {
   const deck = document.querySelector('.deck')
   if (selector !== deck && !(selector.classList.contains("show"))) {
     selector.classList.add('open', 'show');
-    moveCounter(true, false);
     return selector;
   }
 }
@@ -172,7 +171,7 @@ function winGame (moveCount, starsCount) {
   document.querySelector('.container').insertAdjacentHTML('beforeend', newButton);
 }
 
-// working in the moment ||
+// working in the moment
 function resetGame () {
   const cardElements = document.getElementsByClassName("card");
   let cardList = Array.from(cardElements);
@@ -182,7 +181,7 @@ function resetGame () {
   applyShuffle(cardList);
 }
 
-// Master function to control game flow. 
+// Master function to control game flow.
 function matchingGame (event) {
   const cardElements = document.getElementsByClassName("card");
   let cardList = Array.from(cardElements);
@@ -193,6 +192,7 @@ function matchingGame (event) {
   }
   else if (openList.length === 1) {
     displayCard(selectCard);
+    moveCounter(true, false);
     const openList = openCards(cardList);
     matchingCards(openList);
     if (matchedCards() === 16) {
