@@ -127,6 +127,38 @@ function matchingCards (array) {
     }, 600)};
 }
 
+// Function from https://coderwall.com/p/flonoa/simple-string-format-in-javascript
+String.prototype.format = function () {
+        let a = this;
+        for (let k in arguments) {
+            a = a.replace(new RegExp("\\{" + k + "\\}", 'g'), arguments[k]);
+        }
+        return a
+    }
+
+// Win function!
+function winGame (moveCount, starsCount) {
+  document.querySelector('.container').remove();
+
+  const newDiv = '<div class = "container box"></div>';
+  const newHeader = '<header></header>';
+  const iconHeading = '<i id = "icon" class = "fa fa-check-circle"></i>';
+  const mainHeading = '<h1 class="final-title">Congratulations! You Won!</h1>';
+  const newSection = '<section class = "final-score"></section>';
+  const firstParagraph = '<p>With <strong>{0} Moves</strong> and <strong>{1} stars </strong>.</p>'.format(moveCount, starsCount);
+  const secondParagraph = '<p>Wooooooooooooo!</p>';
+  const newButton = '<button class = "button" type="button" value="Refresh Page" onClick="window.location.reload()">Play again!</button>';
+
+  document.body.insertAdjacentHTML('afterbegin', newDiv);
+  document.querySelector('.container').insertAdjacentHTML('afterbegin', newHeader);
+  document.querySelector('header').insertAdjacentHTML('afterbegin', iconHeading);
+  document.querySelector('header').insertAdjacentHTML('beforeend', mainHeading);
+  document.querySelector('.container').insertAdjacentHTML('beforeend', newSection);
+  document.querySelector('.final-score').insertAdjacentHTML('afterbegin', firstParagraph);
+  document.querySelector('.final-score').insertAdjacentHTML('beforeend', secondParagraph);
+  document.querySelector('.container').insertAdjacentHTML('beforeend', newButton);
+}
+
 // working in the moment ||
 function resetGame () {
   const cardElements = document.getElementsByClassName("card");
@@ -136,6 +168,7 @@ function resetGame () {
   const shuffledCards = shuffle(cardList);
   applyShuffle(cardList);
 }
+
 
 
 

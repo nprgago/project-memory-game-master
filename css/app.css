@@ -50,6 +50,14 @@ h1 {
   75% {transform: rotate(-10deg);}
 }
 
+@keyframes icon {
+  0% {transform: scale(0);}
+  25% {transform: scale(1.5);}
+  50% {transform: scale(0.8);}
+  75€ {transform: scale(1.2);}
+  100% {transform: scale(1);}
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -138,4 +146,45 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/*
+ * Styles for the Win Page
+ */
+.box{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+#icon {
+  width: 100%;
+  font-size: 50px;
+  text-align: center;
+  color: #02ccba;
+  animation-name: icon;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.2s;
+}
+
+.final-title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.final-score {
+  font-size: 16px;
+  text-align: center;
+  color: gray;
+}
+
+.button {
+  background-color: #02ccba;
+  border: none;
+  color: #ffffff;
+  padding: 10px 32px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
 }
