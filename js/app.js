@@ -48,7 +48,7 @@ function setSelector (selector) {
   return selector;
 }
 
-// Move counter Function 
+// Move counter Function
 function moveCounter(increment, restart) {
   const starSelector = document.querySelectorAll('.fa-star');
   const moveSelector = document.querySelector('.moves');
@@ -149,6 +149,7 @@ function winGame (moveCount, starsCount) {
   const time_minutes = document.querySelector('#minutes').textContent;
   const time_seconds = document.querySelector('#seconds').textContent;
   const time = time_minutes + ' minutes and '  + time_seconds + ' seconds';
+  starTime = false;
   document.querySelector('.container').remove();
 
   const newDiv = '<div class = "container score-page"></div>';
@@ -168,6 +169,7 @@ function winGame (moveCount, starsCount) {
   document.querySelector('.final-score').insertAdjacentHTML('afterbegin', firstParagraph);
   document.querySelector('.final-score').insertAdjacentHTML('beforeend', secondParagraph);
   document.querySelector('.container').insertAdjacentHTML('beforeend', newButton);
+  return true;
 }
 
 // working in the moment
@@ -178,7 +180,9 @@ function resetGame () {
   moveCounter(false, true);
   const shuffledCards = shuffle(cardList);
   applyShuffle(cardList);
-  return time = 0
+  document.querySelector('#seconds').textContent = '00';
+  document.querySelector('#minutes').textContent = '00';
+  return time = 0, starTime = false;
 }
 
 // timer function
@@ -190,17 +194,21 @@ function matchingGame (event) {
   let cardList = Array.from(cardElements);
   const selectCard = setSelector(event.target);
   const openList = openCards(cardList);
-  if (openList.length === 0) {
+  let stopTime = false;
+  if (openList.length === 0 && !(selectCard.classList.contains('match'))) {
     displayCard(selectCard);
   }
-  else if (openList.length === 1) {
+  else if (openList.length === 1 && !(selectCard.classList.contains('show') || selectCard.classList.contains('match') || selectCard.classList.contains('deck'))) {
     displayCard(selectCard);
     moveCounter(true, false);
     const openList = openCards(cardList);
     matchingCards(openList);
     if (matchedCards() === 16) {
-      winGame(document.querySelector('.moves').textContent, document.querySelectorAll('.fa-star').length);
+      stopTime = winGame(document.querySelector('.moves').textContent, document.querySelectorAll('.fa-star').length);
     }
+  }
+  if(!selectCard.classList.contains('deck') && !stopTime) {
+    return starTime = true; //time starts if i click on deck and not only in cards || change
   }
 }
 
@@ -214,11 +222,13 @@ applyShuffle(cardList);
 
 // Timer Count (changed from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript)
 let time = 0
+let starTime = false
 setInterval( function() {
-  document.querySelector('#seconds').textContent = (timerCount(++time%60));
-  document.querySelector('#minutes').textContent = (timerCount(parseInt(time/60,10)));
+  if (starTime === true) {
+    document.querySelector('#seconds').textContent = (timerCount(++time%60));
+    document.querySelector('#minutes').textContent = (timerCount(parseInt(time/60,10)));
+  }
 }, 1000);
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
