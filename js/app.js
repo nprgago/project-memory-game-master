@@ -48,7 +48,7 @@ function setSelector (selector) {
   return selector;
 }
 
-// Move counter Function ||
+// Move counter Function 
 function moveCounter(increment, restart) {
   const starSelector = document.querySelectorAll('.fa-star');
   const moveSelector = document.querySelector('.moves');
@@ -56,16 +56,12 @@ function moveCounter(increment, restart) {
   if (increment === true && restart === false) {
     const addMove = currentMoves + 1;
     moveSelector.textContent = addMove;
-    if (currentMoves === 9) {
+    if (currentMoves === 14) {
       const starLost = starSelector[2];
       starLost.classList.remove("fa-star");
       starLost.classList.add("fa-star-o");
-    } else if (currentMoves === 19) {
+    } else if (currentMoves === 24) {
       const starLost = starSelector[1];
-      starLost.classList.remove("fa-star");
-      starLost.classList.add("fa-star-o");
-    } else if (currentMoves === 29) {
-      const starLost = starSelector[0];
       starLost.classList.remove("fa-star");
       starLost.classList.add("fa-star-o");
     }
