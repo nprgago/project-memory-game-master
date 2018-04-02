@@ -155,7 +155,7 @@ function winGame (moveCount, starsCount) {
   const time = time_minutes + ' minutes and '  + time_seconds + ' seconds';
   document.querySelector('.container').remove();
 
-  const newDiv = '<div class = "container box"></div>';
+  const newDiv = '<div class = "container score-page"></div>';
   const newHeader = '<header></header>';
   const iconHeading = '<i id = "icon" class = "fa fa-check-circle"></i>';
   const mainHeading = '<h1 class="final-title">Congratulations! You Won!</h1>';
